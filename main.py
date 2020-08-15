@@ -1,6 +1,6 @@
-import Alchemist.py
-import Maps.py
-import Combat.py
+import Alchemist
+import Maps
+import Combat
 
 if __name__ == '__main__':
     print('PyCharm')

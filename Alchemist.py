@@ -1,1 +1,1 @@
-import Inventory.py
+import Inventory

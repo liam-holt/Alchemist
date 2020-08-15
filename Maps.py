@@ -1,2 +1,2 @@
-import Ingredient.py
-import Enemy.py
+import Ingredient
+import Enemy
