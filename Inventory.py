@@ -13,6 +13,8 @@ class Inventory:
     def print_inventory(self):
         for item in self.inventory:
             print(f"{item.quantity} {item.name}")
+            # pause for user
+            input()
 
     def add_ingredient(self, type):
         ingredient = Ingredient(type)

@@ -71,6 +71,8 @@ class Ingredient:
 
         # placeholder
         print(f"You found {name}!")
+        # pause for user
+        input()
 
         Ingredient.name.fset(self, name)
 

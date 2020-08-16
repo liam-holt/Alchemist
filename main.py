@@ -48,6 +48,8 @@ def check_pick_up(pick_up):
         alchemist.inventory.add_ingredient(ANIMAL_PARTS)
     elif pick_up == BOSS:
         print("boss code for later")
+        # pause for user
+        input()
     else:
         pass
 
