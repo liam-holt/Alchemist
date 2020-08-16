@@ -1,13 +1,18 @@
+"""
+The game board
+Walking "off" the grid will randomize the loot on the map ("zoning")
+WIP
+"""
+
 #import Ingredient
 #import Enemy
 from Alchemist import Alchemist
 import random
 
 FLOWER = '@'
-BOTTLE = '%'
-CATALYST = '!'
-ANIMAL = '}'
-BOSS = '?'
+CONTAINER_OR_CATALYST = '?'
+ANIMAL_PARTS = '%'
+BOSS = '!'
 
 
 class Maps:
@@ -25,7 +30,7 @@ class Maps:
         for row in range(len(self.current_map)):
             for column in range(len(self.current_map[0])):
                 print(self.current_map[row][column], end = "")
-            print()
+            print('|')
 
     def set_alchemist_position(self, alchemist):
         """
@@ -61,21 +66,20 @@ class Maps:
 
         for row in range(self.rows):
             for column in range(self.columns):
-                percent_chance = random.randint(0, 100)
+                # 1% chance was too high for the boss
+                # with 50 tiles its about a 40% spawnrate
+                # 0.5% with 50 tiles is about 22%
+                chance = random.randint(0, 200)
 
-
-
-                if 0 <= percent_chance < 90:
+                if 0 <= chance < 185:
                     pass
-                elif 91 <= percent_chance < 93:
+                elif 186 <= chance < 191:
                     self.current_map[row][column] = FLOWER
-                elif 94 <= percent_chance < 96:
-                    self.current_map[row][column] = ANIMAL
-                elif 97 <= percent_chance < 98:
-                    self.current_map[row][column] = CATALYST
-                elif 99 <= percent_chance < 99:
-                    self.current_map[row][column] = BOTTLE
-                elif percent_chance == 100:
+                elif 192 <= chance < 196:
+                    self.current_map[row][column] = ANIMAL_PARTS
+                elif 197 <= chance < 199:
+                    self.current_map[row][column] = CONTAINER_OR_CATALYST
+                elif chance == 199:
                     if not is_boss:
                         self.current_map[row][column] = BOSS
                         is_boss = True

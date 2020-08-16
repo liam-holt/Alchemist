@@ -1,59 +1,75 @@
+"""
+Author: Liam Trotter
+Date: August 2020
+Description:
+    A simple game to practice Python syntax for Classes
+    You play as an Alchemist, collect ingredients and mix them
+    together to fight off a Harpy, then a Wyvern, then a Dragon
+    WIP
+"""
+
+
 from Alchemist import Alchemist
 from Maps import Maps
-#import Combat
+
+# import Combat
 
 ROWS = 5
 COLUMNS = 10
 
 FLOWER = '@'
-BOTTLE = '%'
-CATALYST = '!'
-ANIMAL = '}'
-BOSS = '?'
+CONTAINER_OR_CATALYST = '?'
+ANIMAL_PARTS = '%'
+BOSS = '!'
 
-def move():
+
+def user_choice():
     valid = False
+    valid_choices = ("W", "A", "S", "D", "E")
 
-    while (not valid):
-        choice = input("W = Up, A = Left, S = Down, D = right: ")
+    while not valid:
+        choice = input("W = Up, A = Left, S = Down, D = right,"
+                       " E = Open Inventory: ")
 
         choice = choice.upper()
 
-        if choice == 'W' or choice == 'A' or choice == 'S' or choice == 'D':
+        if choice in valid_choices:
             valid = True
 
     return choice
 
+
 def check_pick_up(pick_up):
     if pick_up == FLOWER:
-        print("You got a flower!")
-    elif pick_up == BOTTLE:
-        print("You got a bottle!")
-    elif pick_up == CATALYST:
-        print("You got a catalyst!")
-    elif pick_up == ANIMAL:
-        print("You got an animal part")
+        alchemist.inventory.add_ingredient(FLOWER)
+    elif pick_up == CONTAINER_OR_CATALYST:
+        alchemist.inventory.add_ingredient(CONTAINER_OR_CATALYST)
+    elif pick_up == ANIMAL_PARTS:
+        alchemist.inventory.add_ingredient(ANIMAL_PARTS)
     elif pick_up == BOSS:
-        print("uhoh!")
+        print("boss code for later")
     else:
         pass
 
+
 if __name__ == '__main__':
     game_over = False
+    first_map = True
 
     name = input("What is your name? ")
 
     alchemist = Alchemist(name)
 
     maps = Maps(ROWS, COLUMNS)
-    maps.new_map(1)
+    maps.new_map(first_map)
 
-    while (not game_over):
+    while not game_over:
+        first_map = False
         potential_pick_up = maps.set_alchemist_position(alchemist)
         check_pick_up(potential_pick_up)
         maps.print_map()
-        movement = move()
-        is_new_map = alchemist.move(movement, ROWS, COLUMNS)
+        choice = user_choice()
+        is_new_map = alchemist.user_choice(choice, ROWS, COLUMNS)
         if is_new_map:
-            maps.new_map(0)
+            maps.new_map(first_map)
             potential_pick_up = maps.set_alchemist_position(alchemist)
