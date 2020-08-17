@@ -4,9 +4,8 @@ Walking "off" the grid will randomize the loot on the map ("zoning")
 WIP
 """
 
-#import Ingredient
-#import Enemy
-from Alchemist import Alchemist
+# import Ingredient
+# import Enemy
 import random
 
 FLOWER = '@'
@@ -25,7 +24,7 @@ class Maps:
     def print_map(self):
         """
         Displays the game board
-        :return: none
+        :return: None
         """
         for row in range(len(self.current_map)):
             for column in range(len(self.current_map[0])):
@@ -38,32 +37,38 @@ class Maps:
         :param alchemist: the player character class
         :return: a character representing any potential items picked up
         """
+
+        # remove Alchemist's current icon
         for row in range(self.rows):
             for column in range(self.columns):
                 if self.current_map[row][column] == alchemist.icon:
                     self.current_map[row][column] = ' '
 
+        # update Alchemist's icon to new position and return overwritten char
         potential_pick_up = self.current_map[alchemist.row][alchemist.column]
         self.current_map[alchemist.row][alchemist.column] = alchemist.icon
 
         return potential_pick_up
 
-    def new_map(self, is_new):
+    def new_map(self):
         """
         randomizes the items scattered around the map
-        :return:
+        :return: None
         """
 
-        if not is_new:
-            print("The winds are heavy and the sand thick;"
-                  " you aren't sure which way you came from...")
+        # zoning text
+        print("The winds are heavy and the sand thick;"
+                " you aren't sure which way you came from...")
 
+        # clear map
         self.current_map = \
             [[' ' for row in range(self.columns)] \
              for column in range(self.rows)]
 
+        # only allow for 1 boss
         is_boss = False
 
+        # randomize each tile
         for row in range(self.rows):
             for column in range(self.columns):
                 # 1% chance was too high for the boss

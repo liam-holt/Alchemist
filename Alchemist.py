@@ -49,4 +49,3 @@ class Alchemist:
             is_new_map = True
 
         return is_new_map
-

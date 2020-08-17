@@ -4,9 +4,11 @@ Mixed together in Inventory to make potions to fight Enemies
 """
 import random
 
+# Ingredient icons
 FLOWER = '@'
 CONTAINER_OR_CATALYST = '?'
 ANIMAL_PARTS = '%'
+# Ingredient types
 FLOWER_TYPE = 'flower'
 ANIMAL_PARTS_TYPE = 'animal part'
 CATALYST_TYPE = 'catalyst'
@@ -74,6 +76,7 @@ class Ingredient:
         # pause for user
         input()
 
+        # set private name before Setter exists
         Ingredient.name.fset(self, name)
 
     @property
